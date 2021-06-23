@@ -29,13 +29,29 @@ def who(update, context):
 
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+    print(update.message.chat.first_name,":",update.message.text)
+    """user input"""
+    user_input=update.message.text
+    """user input ends """
+    fullstring = update.message.text
+    substring = "@lostlover_bot"
+    if substring in fullstring:
+        print("Found!")
+        update.message.reply_text(user_input)
+    else:
+        print("Not found!")
+    """update.message.reply_text(update.message.text)"""
     """update.message.replay_text()"""
+    
 
 
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+def spam(update, context):
+    for i in range(3):
+        update.message.reply_text("spamming....")
 
 
 def main():
@@ -52,9 +68,11 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("who", who))
+    dp.add_handler(CommandHandler("spam", spam))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
+    print(Filters.text)
 
     # log all errors
     dp.add_error_handler(error)
