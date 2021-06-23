@@ -21,7 +21,7 @@ def start(update, context):
 def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('എന്ത് സഹായം ആണ് വേണ്ടത്?')
-    update.message.reply_text('@AkhilR_143 ചോദിക്ക് അവൻ പറഞ്ഞ് തരും')
+    update.message.reply_text('@Akhil_R143 ചോദിക്ക് അവൻ പറഞ്ഞ് തരും')
 
 def who(update, context):
     update.message.reply_text('iam a super duper bot to bring to hell')
