@@ -15,17 +15,22 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
-
+    update.message.reply_text('നമസ്കാരം!')
+    update.message.reply_text('എന്ത് ഉണ്ട് വിശേഷം 😋')
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text('എന്ത് സഹായം ആണ് വേണ്ടത്?')
+    update.message.reply_text('@AkhilR_143 ചോദിക്ക് അവൻ പറഞ്ഞ് തരും')
+
+def who(update, context):
+    update.message.reply_text('iam a super duper bot to bring to hell')
 
 
 def echo(update, context):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
+    """update.message.replay_text()"""
 
 
 def error(update, context):
@@ -46,6 +51,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("who", who))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
