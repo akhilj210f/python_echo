@@ -22,6 +22,7 @@ def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('എന്ത് സഹായം ആണ് വേണ്ടത്?')
     update.message.reply_text('@Akhil_R143 ചോദിക്ക് അവൻ പറഞ്ഞ് തരും')
+    update.message.reply_text('I only give replay if you mention me with my tag "@lostlover_bot" 😋')
 
 def who(update, context):
     update.message.reply_text('iam a super duper bot to bring to hell')
@@ -32,14 +33,15 @@ def echo(update, context):
     print(update.message.chat.first_name,":",update.message.text)
     """user input"""
     user_input=update.message.text
-    """user input ends """
+    """BOT REPLY """
+    bot_reply=user_input.replace("@lostlover_bot",'')
     fullstring = update.message.text
     substring = "@lostlover_bot"
     if substring in fullstring:
         print("Found!")
-        update.message.reply_text(user_input)
+        update.message.reply_text(bot_reply)
     else:
-        print("Not found!")
+        print(" @lostlover_bot Not found!")
     """update.message.reply_text(update.message.text)"""
     """update.message.replay_text()"""
     
