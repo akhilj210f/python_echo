@@ -3,6 +3,11 @@
 import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+"""bot files """
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+"""ends"""
+
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -55,13 +60,36 @@ def spam(update, context):
     for i in range(3):
         update.message.reply_text("spamming....")
 
+def morning(update, context):
+    fullstring = update.message.text
+    substring = "morning" or "Morning" or "mrng" or "Mrng"
+    if substring in fullstring:
+        print("said good morning")
+        update.message.reply_text("good morning")
+    else:
+        print(" nothing to deal with..")
+
+def chatai(update, context):
+    chatbot = ChatBot('Ron Obvious')
+
+    # Create a new trainer for the chatbot
+    trainer = ChatterBotCorpusTrainer(chatbot)
+
+    # Train the chatbot based on the english corpus
+    trainer.train("chatterbot.corpus.english")
+    # Get a response to an input statement
+    answer=chatbot.get_response(update.message.text)
+    print(answer)
+    update.message.reply_text(answer)
+
+
 
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("Enter your bot tocken here", use_context=True)
+    updater = Updater("tg bot token", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -73,8 +101,9 @@ def main():
     dp.add_handler(CommandHandler("spam", spam))
 
     # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, echo))
-    print(Filters.text)
+    """dp.add_handler(MessageHandler(Filters.text, echo))"""
+    """dp.add_handler(MessageHandler(Filters.text, morning))"""
+    dp.add_handler(MessageHandler(Filters.text, chatai))
 
     # log all errors
     dp.add_error_handler(error)
