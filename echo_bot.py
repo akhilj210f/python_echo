@@ -1,6 +1,6 @@
 
 
-import logging
+import logging,pickle
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 """bot files """
@@ -77,18 +77,16 @@ def morning(update, context):
         print(" nothing to deal with..")
 
 def chatai(update, context):
-    answer=chatbot.get_response(update.message.text)
+    answer = chatbot.get_response(update.message.text)
     print(answer)
-    update.message.reply_text(answer)
-
-
-
+    response_data = str(answer)
+    update.message.reply_text(response_data)
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("tg bot token here", use_context=True)
+    updater = Updater("tg bot tocken", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
