@@ -7,7 +7,14 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 """ends"""
+chatbot = ChatBot('Ron Obvious')
 
+# Create a new trainer for the chatbot
+trainer = ChatterBotCorpusTrainer(chatbot)
+
+# Train the chatbot based on the english corpus
+trainer.train("chatterbot.corpus.english")
+# Get a response to an input statement
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -70,14 +77,6 @@ def morning(update, context):
         print(" nothing to deal with..")
 
 def chatai(update, context):
-    chatbot = ChatBot('Ron Obvious')
-
-    # Create a new trainer for the chatbot
-    trainer = ChatterBotCorpusTrainer(chatbot)
-
-    # Train the chatbot based on the english corpus
-    trainer.train("chatterbot.corpus.english")
-    # Get a response to an input statement
     answer=chatbot.get_response(update.message.text)
     print(answer)
     update.message.reply_text(answer)
@@ -89,7 +88,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("tg bot token", use_context=True)
+    updater = Updater("tg bot token here", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
