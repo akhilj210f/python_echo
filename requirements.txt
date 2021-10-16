@@ -1,3 +1,6 @@
 python_telegram_bot
-chatterbot
-chatterbot_corpus
+pytube3
+bs4
+requests
+telepot
+instaloader

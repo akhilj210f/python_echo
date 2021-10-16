@@ -1,19 +1,21 @@
 
 
-import logging,pickle
+import logging,pickle,pytube
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from pytube import YouTube
+import instaloader
 """bot files """
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
+#from chatterbot import ChatBot
+#from chatterbot.trainers import ChatterBotCorpusTrainer
 """ends"""
-chatbot = ChatBot('Ron Obvious')
+#chatbot = ChatBot('Ron Obvious')
 
 # Create a new trainer for the chatbot
-trainer = ChatterBotCorpusTrainer(chatbot)
+#trainer = ChatterBotCorpusTrainer(chatbot)
 
 # Train the chatbot based on the english corpus
-trainer.train("chatterbot.corpus.english")
+#trainer.train("chatterbot.corpus.english")
 # Get a response to an input statement
 
 # Enable logging
@@ -46,14 +48,14 @@ def echo(update, context):
     """user input"""
     user_input=update.message.text
     """BOT REPLY """
-    bot_reply=user_input.replace("@lostlover_bot",'')
-    fullstring = update.message.text
-    substring = "@lostlover_bot"
-    if substring in fullstring:
-        print("Found!")
-        update.message.reply_text(bot_reply)
-    else:
-        print(" @lostlover_bot Not found!")
+    #bot_reply=user_input.replace("@lostlover_bot",'')
+    #fullstring = update.message.text
+    #substring = "@lostlover_bot"
+    #if substring in fullstring:
+    #    print("Found!")
+     #   update.message.reply_text(bot_reply)
+    #else:
+     #   print(" @lostlover_bot Not found!")
     """update.message.reply_text(update.message.text)"""
     """update.message.replay_text()"""
     
@@ -81,12 +83,48 @@ def chatai(update, context):
     print(answer)
     response_data = str(answer)
     update.message.reply_text(response_data)
+
+######################## The downloader ########################################
+
+def ytdl(update , context):
+    link = update.message.text.split()
+    ####################VARIABLES#######################
+    try:yturl = link[1]
+    except:
+        update.message.reply_text("missed link? or wrong link?")
+        update.message.reply_text("Format :  /ytdl <youtube  link> ")
+    save_path = "ytdl/"
+    ####################################################
+    
+
+
+    update.message.reply_text("Currently under construction.... ")
+    update.message.reply_text("Sorry for the in conviniance occured.")
+
+
+#################################################################################
+
+
+################################ Instagram DP downloader #################################################
+#Source : https://github.com/debdutgoswami/instagram-profile-picture
+
+def instadp(update , context):
+    tmp= update.message.text.split()
+    username = tmp[1]
+    ig = instaloader.Instaloader()
+    dp = username
+    ig.download_profile(dp , profile_pic_only=True)
+
+
+
+
+#################################################################################
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("tg bot tocken", use_context=True)
+    updater = Updater("", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -96,11 +134,13 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("who", who))
     dp.add_handler(CommandHandler("spam", spam))
+    dp.add_handler(CommandHandler("ytdl", ytdl))
+    dp.add_handler(CommandHandler("instadp", instadp))
 
     # on noncommand i.e message - echo the message on Telegram
     """dp.add_handler(MessageHandler(Filters.text, echo))"""
-    """dp.add_handler(MessageHandler(Filters.text, morning))"""
-    dp.add_handler(MessageHandler(Filters.text, chatai))
+    dp.add_handler(MessageHandler(Filters.text, morning))
+    #dp.add_handler(MessageHandler(Filters.text, chatai))
 
     # log all errors
     dp.add_error_handler(error)
