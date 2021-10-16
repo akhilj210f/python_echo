@@ -111,10 +111,11 @@ def ytdl(update , context):
 def instadp(update , context):
     tmp= update.message.text.split()
     username = tmp[1]
-    ig = instaloader.Instaloader()
+    update.message.reply_text("Downloading instagram profile picture of username: "+username)
+    ig = instaloader.Instaloader(dirname_pattern="dpfolder/",filename_pattern=None,title_pattern=username)
     dp = username
     ig.download_profile(dp , profile_pic_only=True)
-
+    
 
 
 
