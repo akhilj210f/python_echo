@@ -1,7 +1,8 @@
 
 
 import logging,pickle,pytube
-
+import os
+import shutil
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from pytube import YouTube
 import instaloader
@@ -106,7 +107,7 @@ def ytdl(update , context):
 
 
 ################################ Instagram DP downloader #################################################
-#Source : https://github.com/debdutgoswami/instagram-profile-picture
+#Source : instaloader
 
 def instadp(update , context):
     tmp= update.message.text.split()
@@ -115,6 +116,15 @@ def instadp(update , context):
     ig = instaloader.Instaloader(dirname_pattern="dpfolder/",filename_pattern=None,title_pattern=username)
     dp = username
     ig.download_profile(dp , profile_pic_only=True)
+    chatid=update.message.chat.id
+    directory_path = os.getcwd()
+    filepath = directory_path+"/dpfolder/"+username+".jpg"
+    update.message.reply_document(open(filepath, 'rb'))
+    pathtoremove = "dpfolder"
+    shutil.rmtree(pathtoremove, ignore_errors=False, onerror=None)
+    fromuser = update.message.chat.username
+    print("Profile pic requested by "+fromuser+" is successfully uploaded..")
+    update.message.reply_text("Done.")
     
 
 
